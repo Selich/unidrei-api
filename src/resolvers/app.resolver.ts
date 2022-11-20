@@ -1,8 +1,14 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { PrivateDocumentInput, Document } from '../schema/app.schema';
+import {
+  PrivateDocumentInput,
+  Document,
+  RequestDocumentInput,
+  SignInput,
+} from '../schema/app.schema';
 import algosdk from 'algosdk';
 import fs from 'fs/promises';
 import crypto from 'crypto';
+import { env } from 'process';
 
 async function createAsset(algodClient: any, alice: any) {
   console.log('');
@@ -89,6 +95,9 @@ async function createAsset(algodClient: any, alice: any) {
   };
 }
 
+const tumAddress = 'MHRESQQ66SAY7IA524HER46UIDNEP6AFLREBGRJSLLLKZ7DWF6D5QOYYUA';
+const pk =
+  'photo leave draft decide example decade kingdom side script today sketch weapon evil abandon hurry unhappy wedding butter silk acoustic brush video zero abstract pilot';
 @Resolver(() => Document)
 export class AppResolver {
   @Query(() => String)
@@ -97,7 +106,53 @@ export class AppResolver {
   }
 
   @Mutation(() => String)
-  async fileUpload(@Args('input') input: PrivateDocumentInput): Promise<any> {
+  async sign(@Args('input') input: SignInput): Promise<string> {
+    const { signedTxn, address, txId } = input;
+    const algodClient = new algosdk.Algodv2(
+      'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+      'http://localhost',
+      4001,
+    );
+    const mparams = {
+      version: 1,
+      threshold: 2,
+      addrs: [address, tumAddress],
+    };
+    const account = await algosdk.mnemonicToSecretKey(pk);
+
+    const array = signedTxn.split(',').map(Number);
+
+    const temp = new Uint8Array(array);
+
+    // const twosigs = algosdk.appendSignMultisigTransaction(
+    //   temp,
+    //   mparams,
+    //   account.sk,
+    // ).blob;
+
+    // console.log(twosigs);
+
+    // await algodClient.sendRawTransaction(twosigs).do();
+    // const confirmedTxn = await algosdk.waitForConfirmation(
+    //   algodClient,
+    //   txId,
+    //   4,
+    // );
+    // if (confirmedTxn) {
+    return 'https://transcript-nselic.s3.eu-central-1.amazonaws.com/test.pdf';
+    // } else {
+    //   throw new Error('Transaction not confirmed');
+    // }
+  }
+  @Mutation(() => String)
+  async mint(@Args('input') input: MintInput): Promise<string> {
+    return 'https://awstip.com/setting-up-simple-aws-s3-bucket-in-react-bf7e2c3d7e3e';
+  }
+
+  @Mutation(() => String)
+  async fileUpload(
+    @Args('input') input: PrivateDocumentInput,
+  ): Promise<string> {
     const accountAddress =
       'YBBY6H7QHRYSAFI47WM7OYO2SSPWOKYVCZRKSZS2XACWYZDOKAK3QSLZWI';
     const accountSK =
@@ -135,7 +190,7 @@ export class AppResolver {
       // await destroyAsset(algodClient, alice, assetID);
       // // CLOSEOUT ALGOS - Alice closes out Alogs to dispenser
       // await closeoutAliceAlgos(algodClient, alice);
-      return { assetID, transaction, round };
+      return transaction;
     } catch (err) {
       console.log('err', err);
     }

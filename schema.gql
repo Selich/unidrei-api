@@ -39,7 +39,20 @@ type Query {
 }
 
 type Mutation {
+  sign(input: SignInput!): String!
+  requestDocument(input: RequestDocumentInput!): String!
   fileUpload(input: PrivateDocumentInput!): String!
+}
+
+input SignInput {
+  signedTxn: String!
+  address: String!
+  txId: String!
+}
+
+input RequestDocumentInput {
+  name: String!
+  sign: String!
 }
 
 input PrivateDocumentInput {

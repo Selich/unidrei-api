@@ -44,6 +44,27 @@ export class CreatePrivateTwinRedeemInput {
 }
 
 @InputType()
+export class SignInput {
+  @Field()
+  signedTxn: string;
+
+  @Field()
+  address: string;
+
+  @Field()
+  txId: string;
+}
+
+@InputType()
+export class RequestDocumentInput {
+  @Field()
+  name: string;
+
+  @Field()
+  sign: string;
+}
+
+@InputType()
 export class PrivateDocumentInput {
   @Field((type) => GraphQLUpload, { nullable: true, defaultValue: null })
   file?: FileUpload;
