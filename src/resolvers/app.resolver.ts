@@ -145,7 +145,7 @@ export class AppResolver {
     // }
   }
   @Mutation(() => String)
-  async mint(@Args('input') input: MintInput): Promise<string> {
+  async mint(@Args('input') input: RequestDocumentInput): Promise<string> {
     return 'https://awstip.com/setting-up-simple-aws-s3-bucket-in-react-bf7e2c3d7e3e';
   }
 

@@ -2,21 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type PrivateTwinSubAttributesOutput {
-  propertyIri: String!
-  propertyValue: String!
-}
-
-type PrivateTwinComposedAttributesOutput {
-  propertyIri: String!
-  subProperties: [PrivateTwinSubAttributesOutput!]!
-}
-
-type PrivateTwinFlatAttributesOutput {
-  propertyIri: String!
-  propertyValue: String!
-}
-
 type Document {
   _id: String!
   ownerIdentifier: ID!
@@ -28,19 +13,13 @@ type Document {
   isHidden: Boolean!
 }
 
-type ERC721Attributes {
-  display_type: String
-  trait_type: String!
-  value: String!
-}
-
 type Query {
   hello: String!
 }
 
 type Mutation {
   sign(input: SignInput!): String!
-  requestDocument(input: RequestDocumentInput!): String!
+  mint(input: RequestDocumentInput!): String!
   fileUpload(input: PrivateDocumentInput!): String!
 }
 
